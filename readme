@@ -1,0 +1,59 @@
+# Project3
+
+このプロジェクトは、**FastAPI（Python）** と **Express（Node.js）** を使ったシンプルなWebアプリケーションのサンプルです。
+
+---
+
+## 構成
+
+- `practice1/`  
+  Python FastAPI バックエンドAPI  
+- `frontend/`  
+  Node.js Express + EJS フロントエンド
+
+---
+
+## セットアップ手順
+
+### 1. バックエンド（FastAPI）
+
+```bash
+cd practice1
+python -m venv venv
+source venv/Scripts/activate  # Windowsの場合
+pip install fastapi uvicorn
+python app.py  # または uvicorn app:app --reload
+```
+
+- FastAPIサーバーは `http://localhost:8000` で起動します。
+
+---
+
+### 2. フロントエンド（Express）
+
+```bash
+cd frontend
+npm install
+node app.js
+```
+
+- Expressサーバーは `http://localhost:3000` で起動します。
+
+---
+
+## 機能
+
+- Expressの `/home` からPOSTすると、FastAPIのAPIにアクセスし、そのレスポンスを画面に表示します。
+
+---
+
+## 備考
+
+- CORS設定済み（FastAPI側で `http://localhost:3000` を許可）
+- 仮想環境や `node_modules` ディレクトリは `.gitignore` で管理
+
+---
+
+## ライセンス
+
+MIT
