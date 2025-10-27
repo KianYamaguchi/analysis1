@@ -6,10 +6,21 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>ホームページへようこそ!</h1>
-    <h1>メッセージ: <%= message ? message : 'メッセージを受信しませんでした' %></h1>
+    <h1>データ分析アプリ</h1>
     <form action="/home" method="post">
-        <button type="submit">送信</button>  
+        <label for="data">数値データ（カンマ区切り）:</label>
+        <input type="text" id="data" name="data" placeholder="例: 1,2,3,4,5">
+        <button type="submit">送信</button>
     </form>
+
+    <% if (message) { %>
+        <h2>分析結果:</h2>
+        <p><%= message %></p>
+    <% } %>
+
+    <% if (imageUrl) { %>
+        <h2>データの可視化:</h2>
+        <img src="<%= imageUrl %>" alt="データのグラフ">
+    <% } %>
 </body>
 </html>
