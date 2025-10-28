@@ -23,12 +23,6 @@ app.post('/home', async (req, res) => {
       throw new Error('Failed to fetch analysis data');
     }
     const result = await analyzeResponse.json();
-
-    // FastAPIの /plot エンドポイントに GET リクエストを送信
-    const plotResponse = await fetch(`http://localhost:8000/plot?data=${inputData}`);
-    if (!plotResponse.ok) {
-      throw new Error('Failed to fetch plot image');
-    }
     const imageUrl = `http://localhost:8000/plot?data=${inputData}`;
 
     // 結果をテンプレートに渡す

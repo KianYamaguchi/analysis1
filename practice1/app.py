@@ -20,6 +20,8 @@ app.add_middleware(
 class DataModel(BaseModel):
     data: List[float]
 
+
+
 @app.post("/analyze")
 def analyze_data(data: DataModel):
     numbers = data.data
