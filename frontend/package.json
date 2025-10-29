@@ -2,8 +2,11 @@
   "name": "frontend",
   "version": "1.0.0",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+    ,"start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +15,8 @@
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

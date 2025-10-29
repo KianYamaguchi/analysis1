@@ -4,12 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>データ分析アプリ</h1>
     <form action="/home" method="post">
-        <label for="data">数値データ（カンマ区切り）:</label>
-        <input type="text" id="data" name="data" placeholder="例: 1,2,3,4,5">
+        <label for="data">数値データ（カンマ区切りで書いてください）:</label>
+        <input type="text" id="data" name="data" value="<%= typeof inputData !== 'undefined' ? inputData : '' %>" placeholder="例: 1,2,3,4,5" required>
+
+        <label for="graph_type">グラフの種類:</label>
+        <select id="graph_type" name="graph_type">
+            <option value="line" <%= graphType === 'line' ? 'selected' : '' %>>折れ線グラフ</option>
+            <option value="bar" <%= graphType === 'bar' ? 'selected' : '' %>>棒グラフ</option>
+            <option value="scatter" <%= graphType === 'scatter' ? 'selected' : '' %>>散布図</option>
+        </select>
+
         <button type="submit">送信</button>
     </form>
 
@@ -19,7 +28,7 @@
     <% } %>
 
     <% if (imageUrl) { %>
-        <h2>データの可視化:</h2>
+        <h2>グラフ:</h2>
         <img src="<%= imageUrl %>" alt="データのグラフ">
     <% } %>
 </body>

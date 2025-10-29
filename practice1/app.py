@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
+import matplotlib
+matplotlib.use("Agg")  # 追加
+
 import matplotlib.pyplot as plt
 import numpy as np
 from io import BytesIO
@@ -38,21 +41,27 @@ def analyze_data(data: DataModel):
     }
 
 @app.get("/plot")
-def plot_data_get(data: str):
-    # クエリパラメータを受け取り、数値リストに変換
-    numbers = list(map(float, data.split(',')))
-
-    # グラフを作成
-    plt.figure(figsize=(8, 6))
-    plt.plot(numbers, marker='o', label='Data Points')
-    plt.title("Data Visualization")
-    plt.xlabel("Index")
-    plt.ylabel("Value")
-    plt.legend()
-    plt.grid()
-
-    # 画像をバイナリデータとして返す
-    buf = BytesIO()
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    return StreamingResponse(buf, media_type="image/png")
+def plot_data_get(data: str, graph_type: str = "line"):
+    try:
+        numbers = list(map(float, data.split(',')))
+        plt.figure(figsize=(8, 6))
+        if graph_type == "line":
+            plt.plot(numbers, marker='o', label='Line Graph')
+        elif graph_type == "bar":
+            plt.bar(range(len(numbers)), numbers, label='Bar Graph')
+        elif graph_type == "scatter":
+            plt.scatter(range(len(numbers)), numbers, label='Scatter Plot')
+        else:
+            return {"error": "Invalid graph type"}
+        plt.title("Data Visualization")
+        plt.xlabel("Index")
+        plt.ylabel("Value")
+        plt.legend()
+        plt.grid()
+        buf = BytesIO()
+        plt.savefig(buf, format='png')
+        plt.close()  # 追加
+        buf.seek(0)
+        return StreamingResponse(buf, media_type="image/png")
+    except Exception as e:
+        return {"error": str(e)}
